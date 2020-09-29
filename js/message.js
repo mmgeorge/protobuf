@@ -176,7 +176,7 @@ jspb.Message = function() {
  *     in an application.
  * @export
  */
-goog.define('jspb.Message.GENERATE_TO_OBJECT', true);
+const mustAssign0 = goog.define('jspb.Message.GENERATE_TO_OBJECT', true);
 
 
 /**
@@ -191,7 +191,7 @@ goog.define('jspb.Message.GENERATE_TO_OBJECT', true);
  *     activate the feature.
  *     By default this is enabled for test code only.
  */
-goog.define('jspb.Message.GENERATE_FROM_OBJECT', !goog.DISALLOW_TEST_ONLY_CODE);
+const mustAssign1 = goog.define('jspb.Message.GENERATE_FROM_OBJECT', !goog.DISALLOW_TEST_ONLY_CODE);
 
 
 /**
@@ -199,7 +199,7 @@ goog.define('jspb.Message.GENERATE_FROM_OBJECT', !goog.DISALLOW_TEST_ONLY_CODE);
  *     this off if you do not use toString in your project and want to trim it
  *     from the compiled JS.
  */
-goog.define('jspb.Message.GENERATE_TO_STRING', true);
+const mustAssign2 = goog.define('jspb.Message.GENERATE_TO_STRING', true);
 
 
 /**
@@ -207,7 +207,7 @@ goog.define('jspb.Message.GENERATE_TO_STRING', true);
  *     local (e.g. not from another iframe) and thus safely classified with
  *     instanceof Array.
  */
-goog.define('jspb.Message.ASSUME_LOCAL_ARRAYS', false);
+const mustAssign3 = goog.define('jspb.Message.ASSUME_LOCAL_ARRAYS', false);
 
 
 // TODO(jakubvrana): Turn this off by default.
@@ -217,7 +217,7 @@ goog.define('jspb.Message.ASSUME_LOCAL_ARRAYS', false);
  *     the proto before serialization. This is enabled by default to be
  *     backwards compatible. Projects are advised to turn this flag always off.
  */
-goog.define('jspb.Message.SERIALIZE_EMPTY_TRAILING_FIELDS', true);
+const mustAssign4 = goog.define('jspb.Message.SERIALIZE_EMPTY_TRAILING_FIELDS', true);
 
 
 /**

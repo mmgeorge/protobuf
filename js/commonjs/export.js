@@ -5,10 +5,6 @@
  * the google-protobuf.js file that we build at distribution time.
  */
 
-// Include a dummy provide statement so that closurebuilder.py does not skip over this
-// file.
-goog.provide('jspb.Export');
-
 goog.require('goog.object');
 goog.require('jspb.BinaryReader');
 goog.require('jspb.BinaryWriter');
@@ -16,6 +12,12 @@ goog.require('jspb.ExtensionFieldBinaryInfo');
 goog.require('jspb.ExtensionFieldInfo');
 goog.require('jspb.Message');
 goog.require('jspb.Map');
+
+// Wrappers needed for codegen
+goog.require('jspb.exportSymbol');
+goog.require('jspb.inherits');
+goog.require('jspb.object');
+goog.require('jspb.typeOf');
 
 exports['Map'] = jspb.Map;
 exports['Message'] = jspb.Message;
@@ -25,7 +27,7 @@ exports['ExtensionFieldInfo'] = jspb.ExtensionFieldInfo;
 exports['ExtensionFieldBinaryInfo'] = jspb.ExtensionFieldBinaryInfo;
 
 // These are used by generated code but should not be used directly by clients.
-exports['exportSymbol'] = goog.exportSymbol;
-exports['inherits'] = goog.inherits;
-exports['object'] = {extend: goog.object.extend};
-exports['typeOf'] = goog.typeOf;
+exports['exportSymbol'] = jspb.exportSymbol;
+exports['inherits'] = jspb.inherits;
+exports['object'] = {extend: jspb.object.extend};
+exports['typeOf'] = jspb.typeOf;

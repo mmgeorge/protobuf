@@ -118,10 +118,10 @@ var group3Protos = [
 gulp.task('genproto_wellknowntypes', function (cb) {
   exec(protoc + ' --js_out=import_style=commonjs,binary:. -I ../src ' + wellKnownTypes.join(' '),
        function (err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-    cb(err);
-  });
+         console.log(stdout);
+         console.log(stderr);
+         cb(err);
+       });
 });
 // gulp.task('genproto_group3_commonjs_strict', function (cb) {
 //   exec('mkdir -p commonjs_out && ' + protoc + ' --js_out=import_style=commonjs_strict,binary:commonjs_out -I ../src -I commonjs -I . ' + group3Protos.join(' '),
@@ -132,30 +132,36 @@ gulp.task('genproto_wellknowntypes', function (cb) {
 //   });
 // });
 
-
 function getClosureBuilderCommand(exportsFile, outputFile, keepSymbols) {
-  var compilationLevel = 'ADVANCED_OPTIMIZATIONS';
-  if (keepSymbols === true) {
-    compilationLevel = 'SIMPLE_OPTIMIZATIONS';
-  }
-  return './node_modules/google-closure-library/closure/bin/build/closurebuilder.py ' +
-  '--root node_modules ' +
-  '-o compiled ' +
-  '--compiler_jar node_modules/google-closure-compiler/compiler.jar ' +
-  `--compiler_flags="--compilation_level=${compilationLevel}" ` +
-  '--compiler_flags="--generate_exports" ' +
-  '--compiler_flags="--export_local_property_definitions" ' +
-  '-i ' + exportsFile + ' ' +
-  'map.js message.js binary/arith.js binary/constants.js binary/decoder.js ' +
-  'binary/encoder.js binary/reader.js binary/utils.js binary/writer.js ' +
-  exportsFile  + ' > ' + outputFile;
+  let compilationLevel = 'ADVANCED';
+
+  //if (keepSymbols === true) {
+  //  compilationLevel = 'SIMPLE';
+  //}
+
+  const path = "./node_modules/google-closure-compiler-linux/compiler";
+  const files = [
+    "map.js", "message.js", "binary/arith.js", "binary/constants.js",
+    "binary/decoder.js", "binary/encoder.js", "binary/reader.js", "binary/utils.js", "binary/writer.js"];
+  
+  return `${path} ` +
+    `--js node_modules/google-closure-library/ ` +
+    `--js commonjs/codegen_deps.js ` +
+    `--entry_point ${exportsFile} ` +
+    `--js ${exportsFile} ` +
+    `--js ${files.join(" ")} ` +
+    `--js_output_file ${outputFile} ` +
+    `--compilation_level=${compilationLevel} ` + 
+    `--language_out=ECMASCRIPT_2018 ` +
+    `--generate_exports=true ` +
+    `--export_local_property_definitions=true ` +
+    `--process_common_js_modules=true`;
 }
 
 gulp.task('dist', gulp.series('genproto_wellknowntypes', function (cb) {
-  // TODO(haberman): minify this more aggressively.
-  // Will require proper externs/exports.
-  exec(getClosureBuilderCommand('commonjs/export.js', 'google-protobuf.js'),
-       function (err, stdout, stderr) {
+  const command = getClosureBuilderCommand('commonjs/export.js', 'google-protobuf.js');
+  
+  exec(command, (err, stdout, stderr) => {
     console.log(stdout);
     console.log(stderr);
     cb(err);
