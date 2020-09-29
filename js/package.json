@@ -6,12 +6,13 @@
   "files": [
     "google"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "gulp": "^4.0.2"
+  },
   "devDependencies": {
     "glob": "~6.0.4",
     "google-closure-compiler": "~20160619.0.0",
     "google-closure-library": "~20160125.0.0",
-    "gulp": "~3.9.0",
     "jasmine": "~2.4.1"
   },
   "scripts": {
